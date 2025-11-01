@@ -207,35 +207,40 @@
     const statusEl = $('#status');
 
     function makeSummonsClassic(u, court, c) {
-      const user = (u || '').trim();
-      const level = (court || '').trim().toLowerCase();
-      const kase = (c || '').trim();
-      const allowed = new Set(['District', 'Federal', 'Supreme']);
-      const safeLevel = allowed.has(level) ? level : 'District';
-      return `[SUMMONS]@${user}, is required to appear before the ${safeLevel} Court in the case of ${kase}[/SUMMONS]`;
-    }
+  const user = (u || '').trim();
+  const kase = (c || '').trim();
+  const allowed = new Set(['district', 'federal', 'supreme']);
+  const safeLevel = allowed.has((court || '').trim().toLowerCase()) 
+    ? court.charAt(0).toUpperCase() + court.slice(1).toLowerCase()
+    : 'District';
+  return `[SUMMONS]@${user}, is required to appear before the ${safeLevel} Court in the case of ${kase}[/SUMMONS]`;
+}
 
-    function makeSummonsVBar(u, court, c, link) {
-      const user = (u || '').trim();
-      const level = (court || '').trim().toLowerCase();
-      const caseLink = (link || '').trim();
-      const allowed = new Set(['District', 'Federal', 'Supreme']);
-      const safeLevel = allowed.has(level) ? level : 'District';
-      const tokenMap = { District: 'Districtcourt', Federal: 'Federalcourt', Supreme: 'Supremecourt' };
-      const token = tokenMap[safeLevel];
-      const bar = ':VBar:';
-      const header = `:${token}:${bar}**SUMMONS**${bar}:${token}:`;
-      return [
-        header,
-        '',
-        `@${user} is hereby summoned to the ${safeLevel} Court of the Commonwealth of Redmont in the below case.`,
-        '',
-        `- You must appear within 72 hours. Other deadlines, policies, and procedures are available [here](https://www.democracycraft.net/threads/court-rules-and-procedures.118/).`,
-        `- ${caseLink}`,
-        '',
-        '<@Legal>'
-      ].join('\n');
-    }
+function makeSummonsVBar(u, court, c, link) {
+  const user = (u || '').trim();
+  const kase = (c || '').trim();
+  const caseLink = (link || '').trim();
+  const allowed = new Set(['district', 'federal', 'supreme']);
+  const level = (court || '').trim().toLowerCase();
+  const safeLevel = allowed.has(level)
+    ? level.charAt(0).toUpperCase() + level.slice(1)
+    : 'District';
+  const tokenMap = { District: 'Districtcourt', Federal: 'Federalcourt', Supreme: 'Supremecourt' };
+  const token = tokenMap[safeLevel];
+  const bar = ':VBar:';
+  const header = `:${token}:${bar}**SUMMONS**${bar}:${token}:`;
+  return [
+    header,
+    '',
+    `@${user} is hereby summoned to the ${safeLevel} Court of the Commonwealth of Redmont in the below case.`,
+    '',
+    `- You must appear within 72 hours. Other deadlines, policies, and procedures are available [here](https://www.democracycraft.net/threads/court-rules-and-procedures.118/).`,
+    `- ${caseLink}`,
+    '',
+    '<@Legal>'
+  ].join('\n');
+}
+
 
     function currentTemplate() {
       const checked = document.querySelector('input[name="tpl"]:checked');
