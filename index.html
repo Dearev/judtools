@@ -35,24 +35,20 @@
   header { display:flex; align-items:center; gap:12px; margin-bottom:18px; padding:20px 0; border-bottom:1px solid rgba(255,255,255,.06); }
   header h1 { font-size:1.4rem; margin:0; }
 
+  .grid { display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:880px){ .grid{ grid-template-columns:1.05fr 0.95fr; } }
+
   .card {
     background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 20px;
-    display: grid;
-    place-items: center;
-    max-width: 760px;
-    width: 100%;
   }
-
-  .grid { display:grid; grid-template-columns:1fr; gap:16px; }
-  @media (min-width:880px){ .grid{ grid-template-columns:1.05fr 0.95fr; } }
 
   label { display:block; font-size:.9rem; color:var(--muted); margin-bottom:6px; }
 
-  input[type="text"], select, textarea {
+  input[type="text"], select {
     width:100%; padding:12px 14px; border-radius:12px;
     border:1px solid var(--border); background:#0f1530; color:var(--text);
   }
@@ -88,10 +84,12 @@
   </style>
 </head>
 <body>
+
 <div class="wrap">
 <header><h1>Summons thing v2</h1></header>
 
 <div class="grid">
+
 <section class="card">
 
 <div class="tabs">
@@ -130,16 +128,29 @@
   <button id="generate">Generate</button>
   <button id="copy" class="ok">Copy</button>
   <button id="download" class="ghost">Download .txt</button>
-  <span id="status"></span>
 </div>
 
 <p style="margin-top:10px; color:var(--muted)">Output preview:</p>
 <pre class="out" id="preview"></pre>
 
 </section>
+
+<aside class="card">
+  <h3 style="margin:0 0 8px 0">How it works</h3>
+  <ol style="margin:0; padding-left:18px; line-height:1.6">
+    <li>Select a <strong>template</strong>: Discord or Forums.</li>
+    <li>Enter the <em>user</em> handle (no @ needed).</li>
+    <li>Choose one of: <code>District</code>, <code>Federal</code>, or <code>Supreme</code>.</li>
+    <li>Type the <em>case</em> and (for Discord) the <em>case link</em>.</li>
+    <li>Click <strong>Generate</strong> (or just type), then <strong>Copy</strong> or <strong>Download</strong>.</li>
+  </ol>
+</aside>
+
 </div>
 
-<footer> Made by Dearev: https://github.com/Dearev | This tool has no relation to GlobalCenter Corporation (i just use the domain :3) </footer>
+<footer>
+Made by Dearev: https://github.com/Dearev | This tool has no relation to GlobalCenter Corporation (i just use the domain :3)
+</footer>
 </div>
 
 <script>
@@ -161,27 +172,17 @@ function makeSummonsClassic(u, court, c) {
 }
 
 function makeSummonsVBar(u, court, c, link) {
-  const lvl = court.toLowerCase();
-  const emoji = courtEmoji[lvl];
+  const emoji = courtEmoji[court.toLowerCase()];
   return `:${emoji}::VBar: **SUMMONS** :VBar::${emoji}:\n\n@${u} is hereby summoned to the ${court} Court of the Commonwealth of Redmont in the below case.\n\n- You must appear within 72 hours. Other deadlines, policies, and procedures are available [here](https://www.democracycraft.net/threads/court-rules-and-procedures.118/).\n- ${link}\n\n<@Legal>`;
 }
 
 function makeWitnessSummons(user, court, link) {
-  const lvl = (court || 'District').toLowerCase();
-  const emoji = courtEmoji[lvl] || 'districtcourt';
-  const courtName = lvl.charAt(0).toUpperCase() + lvl.slice(1);
-
-  return `:${emoji}::VBar: **SUMMONS** :VBar::${emoji}: @${user} is hereby summonsed to the ${courtName} Court of the Commonwealth of Redmont in the below case as a Witness.
-
-:small_orange_diamond: Witnesses are asked to ensure they familiarise themselves with the case.
-:small_orange_diamond: Witnesses are requested to respond to the respective parties when questioned and cross-examined.
-:small_orange_diamond: Witnesses are asked to identify themselves as present on the forum thread within **72 hours**.
-:small_orange_diamond: ${link}
-
-<@Legal>`;
+  const lvl = court.toLowerCase();
+  const emoji = courtEmoji[lvl];
+  return `:${emoji}::VBar: **SUMMONS** :VBar::${emoji}: @${user} is hereby summonsed to the ${court} Court of the Commonwealth of Redmont in the below case as a Witness.\n\n:small_orange_diamond: Witnesses are asked to ensure they familiarise themselves with the case.\n:small_orange_diamond: Witnesses are requested to respond to the respective parties when questioned and cross-examined.\n:small_orange_diamond: Witnesses are asked to identify themselves as present on the forum thread within **72 hours**.\n:small_orange_diamond: ${link}\n\n<@Legal>`;
 }
 
-function currentTemplate(){ return document.querySelector('input[name="tpl"]:checked').value; }
+function currentTemplate(){ return document.querySelector('input[name=\"tpl\"]:checked').value; }
 
 function makeText(){
   const tpl = currentTemplate();
@@ -193,7 +194,7 @@ function makeText(){
 function update(){ preview.textContent = makeText(); }
 
 [userEl, courtEl, caseEl, caseLinkEl].forEach(el=>el.addEventListener('input', update));
-document.querySelectorAll('input[name="tpl"]').forEach(el=>el.addEventListener('change', update));
+document.querySelectorAll('input[name=\"tpl\"]').forEach(el=>el.addEventListener('change', update));
 
 $('#generate').onclick = update;
 $('#copy').onclick = async()=>{ await navigator.clipboard.writeText(makeText()); };
@@ -207,5 +208,6 @@ $('#download').onclick = ()=>{
 
 update();
 </script>
+
 </body>
 </html>
