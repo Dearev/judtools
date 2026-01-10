@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Summons Template Filler</title>
+  <title>silly summons thing</title>
   <style>
   :root {
     --bg: #0b1020;
@@ -23,7 +23,7 @@
   html, body { height: 100%; }
   body {
     margin: 0;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial;
     background: radial-gradient(1200px 600px at 10% -10%, rgba(122,162,255,.15), transparent),
                 radial-gradient(1000px 800px at 110% 10%, rgba(167,123,255,.16), transparent),
                 var(--bg);
@@ -32,16 +32,8 @@
 
   .wrap { max-width: 960px; margin: 6vh auto 8vh; padding: 0 16px; }
 
-  header { 
-    display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
-    padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,.06);
-  }
-  header .logo {
-    width: 40px; height: 40px; border-radius: 12px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    display: grid; place-items: center; color: #0b1020; font-weight: 900;
-  }
-  header h1 { font-size: 1.4rem; margin: 0; }
+  header { display:flex; align-items:center; gap:12px; margin-bottom:18px; padding:20px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+  header h1 { font-size:1.4rem; margin:0; }
 
   .card {
     background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
@@ -51,256 +43,165 @@
     padding: 20px;
   }
 
-  .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-  @media (min-width: 880px) { .grid { grid-template-columns: 1.05fr 0.95fr; } }
+  .grid { display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:880px){ .grid{ grid-template-columns:1.05fr 0.95fr; } }
 
-  label { display: block; font-size: 0.9rem; color: var(--muted); margin-bottom: 6px; }
+  label { display:block; font-size:.9rem; color:var(--muted); margin-bottom:6px; }
 
   input[type="text"], select, textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: #0f1530;
-    color: var(--text);
-    outline: none;
-    caret-color: var(--accent);
-    transition: border-color .15s ease, box-shadow .15s ease;
-  }
-  input[type="text"]:focus, select:focus, textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(122,162,255,.25);
+    width:100%; padding:12px 14px; border-radius:12px;
+    border:1px solid var(--border); background:#0f1530; color:var(--text);
   }
 
-  .row { display: grid; grid-template-columns: 1fr; gap: 12px; }
-  @media (min-width: 640px) { .row { grid-template-columns: 1fr 1fr; } }
+  .row { display:grid; grid-template-columns:1fr; gap:12px; }
+  @media (min-width:640px){ .row{ grid-template-columns:1fr 1fr; } }
 
-  .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items: center; }
+  .btns { display:flex; gap:10px; margin-top:12px; align-items:center; flex-wrap:wrap; }
 
   button {
-    appearance: none; border: 1px solid var(--border); cursor: pointer;
-    padding: 10px 14px; border-radius: 12px; font-weight: 600; letter-spacing: .2px;
-    background: #0d1330; color: var(--text);
-    box-shadow: 0 6px 12px rgba(0,0,0,.25);
-    transition: transform .06s ease, border-color .15s ease;
+    border:1px solid var(--border); cursor:pointer;
+    padding:10px 14px; border-radius:12px; font-weight:600;
+    background:#0d1330; color:var(--text);
   }
-  button:hover { transform: translateY(-1px); border-color: #3b4580; }
-  button:active { transform: translateY(1px); }
 
-  .ghost { background: transparent; border: 1px dashed var(--border); box-shadow: none; }
-  .ok { 
-    background: linear-gradient(135deg, rgba(52,211,153,.18), rgba(122,162,255,.12)); 
-    border-color: #2aa57b;
-  }
+  .ok { background:linear-gradient(135deg, rgba(52,211,153,.18), rgba(122,162,255,.12)); border-color:#2aa57b; }
+  .ghost { background:transparent; border:1px dashed var(--border); }
 
   .out {
-    min-height: 180px;
-    white-space: pre-wrap; line-height: 1.5;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    background: #0a0f25;
-    border-radius: var(--radius);
-    padding: 14px;
-    border: 1px solid var(--border);
-    color: #e6ecff;
+    min-height:180px; white-space:pre-wrap; line-height:1.5;
+    font-family:ui-monospace, monospace;
+    background:#0a0f25; border-radius:18px; padding:14px; border:1px solid var(--border);
   }
 
-  .muted { color: var(--muted); font-size: .88rem; }
-  footer { margin-top: 18px; color: var(--muted); font-size: .82rem; text-align: center; }
-
-  /* Template tabs */
-  .tabs { display: flex; gap: 8px; margin: 8px 0 4px; flex-wrap: wrap; }
+  .tabs { display:flex; gap:8px; margin:8px 0 4px; flex-wrap:wrap; }
   .tabs label {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 10px; border-radius: 12px; border: 1px solid var(--border);
-    background: #0f1530; cursor: pointer; color: var(--text);
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 10px; border-radius:12px; border:1px solid var(--border);
+    background:#0f1530; cursor:pointer;
   }
-  .tabs input { appearance: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--muted); }
-  .tabs input:checked { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(122,162,255,.25) inset; }
-</style>
 
+  footer { margin-top:18px; color:var(--muted); font-size:.82rem; text-align:center; }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>Summons Template Filler</h1>
-    </header>
+<div class="wrap">
+<header><h1>Summons thing v2</h1></header>
 
-    <div class="grid">
-      <section class="card">
-        <div class="tabs" role="tablist" aria-label="Template type">
-          <label><input type="radio" name="tpl" value="classic" checked /> Forums Summons</label>
-          <label><input type="radio" name="tpl" value="vbar" /> Discord Summons</label>
-        </div>
+<div class="grid">
+<section class="card">
 
-        <div class="row">
-          <div>
-            <label for="user">User handle (without @)</label>
-            <input id="user" type="text" placeholder="e.g Dearev" value="" />
-          </div>
-          <div>
-            <label for="court">Court level</label>
-            <select id="court">
-              <option value="District">District</option>
-              <option value="Federal" selected>Federal</option>
-              <option value="Supreme">Supreme</option>
-            </select>
-          </div>
-        </div>
-        <div class="row" style="margin-top:12px">
-          <div>
-            <label for="case">Case name / number</label>
-            <input id="case" type="text" placeholder="e.g., Dearev v. Dearev [2025] FCR 01 " value="" />
-          </div>
-          <div>
-            <label for="caseLink">Case link (used in Discord Summons)</label>
-            <input id="caseLink" type="text" placeholder="https://example.com/case" value="https://example.com/case" />
-          </div>
-        </div>
+<div class="tabs">
+  <label><input type="radio" name="tpl" value="classic" checked> Forums Summons</label>
+  <label><input type="radio" name="tpl" value="vbar"> Discord Summons</label>
+  <label><input type="radio" name="tpl" value="witness"> Witness Summons</label>
+</div>
 
-        <div class="btns">
-          <button id="generate">Generate</button>
-          <button id="copy" class="ok">Copy</button>
-          <button id="download" class="ghost">Download .txt</button>
-          <span id="status" class="muted" aria-live="polite"></span>
-        </div>
-        <p class="muted" style="margin-top:10px">Output preview (switch template above):</p>
-        <pre class="out" id="preview" aria-label="Output preview"></pre>
-      </section>
-
-      <aside class="card">
-        <h3 style="margin:0 0 8px 0">How it works</h3>
-        <ol style="margin:0; padding-left: 18px; line-height:1.6">
-          <li>Select a <strong>template</strong>: Discord or Forums.</li>
-          <li>Enter the <em>user</em> handle (no @ needed).</li>
-          <li>Choose one of: <code>District</code>, <code>Federal</code>, or <code>Supreme</code>.</li>
-          <li>Type the <em>case</em> and (for Discord) the <em>case link</em>.</li>
-          <li>Click <strong>Generate</strong> (or just type), then <strong>Copy</strong> or <strong>Download</strong>.</li>
-        </ol>
-        <details style="margin-top:12px"><summary class="muted">Show exact templates</summary>
-          <p class="muted">Forums</p>
-          <pre class="out">[SUMMONS]@{user}, is required to appear before the {District/Federal/Supreme} Court in the case of {case}[/SUMMONS]</pre>
-          <p class="muted">Discord</p>
-          <pre class="out">:{districtcourt/federalcourt/supremecourt}::Vbar:**SUMMONS**:Vbar::districtcourt/federalcourt/supremecourt:
-
-@{user} is hereby summoned to the {court level} Court of the Commonwealth of Redmont in the below case.
-
-- You must appear within 72 hours. Other deadlines, policies, and procedures are available [here](https://www.democracycraft.net/threads/court-rules-and-procedures.118/).
-- {case link}
-
-<@Legal></pre>
-        </details>
-      </aside>
-    </div>
-
-    <footer>
-      Made by Dearev: https://github.com/Dearev | This tool has no relation to GlobalCenter Corporation (i just use the domain :3)
-    </footer>
+<div class="row">
+  <div>
+    <label>User handle (without @)</label>
+    <input id="user" type="text" placeholder="e.g Dearev">
   </div>
+  <div>
+    <label>Court level</label>
+    <select id="court">
+      <option value="District">District</option>
+      <option value="Federal">Federal</option>
+      <option value="Supreme">Supreme</option>
+    </select>
+  </div>
+</div>
 
-  <script>
-    const $ = (sel) => document.querySelector(sel);
-    const userEl = $('#user');
-    const courtEl = $('#court');
-    const caseEl = $('#case');
-    const caseLinkEl = $('#caseLink');
-    const preview = $('#preview');
-    const statusEl = $('#status');
+<div class="row" style="margin-top:12px">
+  <div>
+    <label>Case name / number</label>
+    <input id="case" type="text" placeholder="Dearev v. Dearev [2026] FCR 1">
+  </div>
+  <div>
+    <label>Case link</label>
+    <input id="caseLink" type="text" placeholder="https://example.com/case">
+  </div>
+</div>
 
-    function makeSummonsClassic(u, court, c) {
-  const user = (u || '').trim();
-  const kase = (c || '').trim();
-  const allowed = new Set(['district', 'federal', 'supreme']);
-  const safeLevel = allowed.has((court || '').trim().toLowerCase()) 
-    ? court.charAt(0).toUpperCase() + court.slice(1).toLowerCase()
-    : 'District';
-  return `[SUMMONS]@${user}, is required to appear before the ${safeLevel} Court in the case of ${kase}[/SUMMONS]`;
+<div class="btns">
+  <button id="generate">Generate</button>
+  <button id="copy" class="ok">Copy</button>
+  <button id="download" class="ghost">Download .txt</button>
+  <span id="status"></span>
+</div>
+
+<p style="margin-top:10px; color:var(--muted)">Output preview:</p>
+<pre class="out" id="preview"></pre>
+
+</section>
+</div>
+
+<footer> Made by Dearev: https://github.com/Dearev | This tool has no relation to GlobalCenter Corporation (i just use the domain :3) </footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const userEl = $('#user');
+const courtEl = $('#court');
+const caseEl = $('#case');
+const caseLinkEl = $('#caseLink');
+const preview = $('#preview');
+
+const courtEmoji = {
+  district: 'districtcourt',
+  federal: 'federalcourt',
+  supreme: 'supremecourt'
+};
+
+function makeSummonsClassic(u, court, c) {
+  return `[SUMMONS]@${u}, is required to appear before the ${court} Court in the case of ${c}[/SUMMONS]`;
 }
 
 function makeSummonsVBar(u, court, c, link) {
-  const user = (u || '').trim();
-  const kase = (c || '').trim();
-  const caseLink = (link || '').trim();
-  const allowed = new Set(['district', 'federal', 'supreme']);
-  const level = (court || '').trim().toLowerCase();
-  const safeLevel = allowed.has(level)
-    ? level.charAt(0).toUpperCase() + level.slice(1)
-    : 'District';
-  const tokenMap = { District: 'Districtcourt', Federal: 'Federalcourt', Supreme: 'Supremecourt' };
-  const token = tokenMap[safeLevel];
-  const bar = ':Vbar:';
-  const header = `:${token}:${bar}**SUMMONS**${bar}:${token}:`;
-  return [
-    header,
-    '',
-    `@${user} is hereby summoned to the ${safeLevel} Court of the Commonwealth of Redmont in the below case.`,
-    '',
-    `- You must appear within 72 hours. Other deadlines, policies, and procedures are available [here](https://www.democracycraft.net/threads/court-rules-and-procedures.118/).`,
-    `- ${caseLink}`,
-    '',
-    '<@Legal>'
-  ].join('\n');
+  const lvl = court.toLowerCase();
+  const emoji = courtEmoji[lvl];
+  return `:${emoji}::VBar: **SUMMONS** :VBar::${emoji}:\n\n@${u} is hereby summoned to the ${court} Court of the Commonwealth of Redmont in the below case.\n\n- You must appear within 72 hours. Other deadlines, policies, and procedures are available [here](https://www.democracycraft.net/threads/court-rules-and-procedures.118/).\n- ${link}\n\n<@Legal>`;
 }
 
+function makeWitnessSummons(user, court, link) {
+  const lvl = (court || 'District').toLowerCase();
+  const emoji = courtEmoji[lvl] || 'districtcourt';
+  const courtName = lvl.charAt(0).toUpperCase() + lvl.slice(1);
 
-    function currentTemplate() {
-      const checked = document.querySelector('input[name="tpl"]:checked');
-      return checked ? checked.value : 'classic';
-    }
+  return `:${emoji}::VBar: **SUMMONS** :VBar::${emoji}: @${user} is hereby summonsed to the ${courtName} Court of the Commonwealth of Redmont in the below case as a Witness.
 
-    function makeText() {
-      const tpl = currentTemplate();
-      if (tpl === 'vbar') {
-        return makeSummonsVBar(userEl.value, courtEl.value, caseEl.value, caseLinkEl.value);
-      }
-      return makeSummonsClassic(userEl.value, courtEl.value, caseEl.value);
-    }
+:small_orange_diamond: Witnesses are asked to ensure they familiarise themselves with the case.
+:small_orange_diamond: Witnesses are requested to respond to the respective parties when questioned and cross-examined.
+:small_orange_diamond: Witnesses are asked to identify themselves as present on the forum thread within **72 hours**.
+:small_orange_diamond: ${link}
 
-    function updatePreview() {
-      preview.textContent = makeText();
-    }
+<@Legal>`;
+}
 
-    // Live update
-    [userEl, courtEl, caseEl, caseLinkEl].forEach(el => el.addEventListener('input', updatePreview));
-    document.querySelectorAll('input[name="tpl"]').forEach(el => el.addEventListener('change', updatePreview));
+function currentTemplate(){ return document.querySelector('input[name="tpl"]:checked').value; }
 
-    // Buttons
-    $('#generate').addEventListener('click', (e) => { e.preventDefault(); updatePreview(); flash('Generated'); });
+function makeText(){
+  const tpl = currentTemplate();
+  if(tpl==='vbar') return makeSummonsVBar(userEl.value, courtEl.value, caseEl.value, caseLinkEl.value);
+  if(tpl==='witness') return makeWitnessSummons(userEl.value, courtEl.value, caseLinkEl.value);
+  return makeSummonsClassic(userEl.value, courtEl.value, caseEl.value);
+}
 
-    $('#copy').addEventListener('click', async (e) => {
-      e.preventDefault();
-      const text = makeText();
-      try {
-        await navigator.clipboard.writeText(text);
-        flash('Copied to clipboard');
-      } catch (err) {
-        const ta = document.createElement('textarea');
-        ta.value = text; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); flash('Copied'); } catch {}
-        document.body.removeChild(ta);
-      }
-    });
+function update(){ preview.textContent = makeText(); }
 
-    $('#download').addEventListener('click', (e) => {
-      e.preventDefault();
-      const text = makeText();
-      const blob = new Blob([text], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = (currentTemplate()==='vbar' ? 'summons_vbar.txt' : 'summons_classic.txt');
-      document.body.appendChild(a); a.click();
-      URL.revokeObjectURL(url); document.body.removeChild(a);
-      flash('Downloaded');
-    });
+[userEl, courtEl, caseEl, caseLinkEl].forEach(el=>el.addEventListener('input', update));
+document.querySelectorAll('input[name="tpl"]').forEach(el=>el.addEventListener('change', update));
 
-    function flash(msg) {
-      statusEl.textContent = msg;
-      statusEl.style.opacity = 1;
-      clearTimeout(flash._t);
-      flash._t = setTimeout(() => { statusEl.style.opacity = 0.65; }, 1600);
-    }
+$('#generate').onclick = update;
+$('#copy').onclick = async()=>{ await navigator.clipboard.writeText(makeText()); };
+$('#download').onclick = ()=>{
+  const blob = new Blob([makeText()], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'summons.txt';
+  a.click();
+};
 
-    // Initial render
-    updatePreview();
-  </script>
+update();
+</script>
 </body>
 </html>
